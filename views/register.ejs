@@ -2,11 +2,12 @@
 <div class="w-full h-screen bg-zinc-100 flex items-center justify-center">
     <div class="w-[24vw] h-[65vh] bg-white px-4 py-5 rounded-xl">
           <h1>Welcome to Pintrest</h1>
-          <form action="">
-                <input type="text" placeholder="Email">
-                <input type="number" placeholder="Phone">
-                <input type="password" placeholder="Password">
-                <input type="text" placeholder="Confirm Password">
+          <form action="/register" method="post">
+                <input type="text" placeholder="username" name="username">
+                <input type="text" placeholder="Email" name="email">
+                <input type="number" placeholder="Phone" name="contact">
+                <input type="password" placeholder="Password" name="password">
+                <input type="submit" value="Create New Account">
 
           </form>
           <a href="/">Alreay have an account Login?</a>
