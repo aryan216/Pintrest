@@ -9,10 +9,15 @@ const userSchema=mongoose.Schema({
   password:String,
   profileImage:String,
   contact:Number,
-  posts:{
+  boards:{
     type:Array,
     default:[]
-  }
+  },
+  posts:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"post"
+}]
+
 });
 userSchema.plugin(plm)
 module.exports=mongoose.model("user",userSchema);
