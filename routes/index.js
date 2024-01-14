@@ -18,12 +18,16 @@ router.get('/register', function (req, res, next) {
   res.render('register');
 });
 
-router.get('/profile', isLoggedIn, function (req, res, next) {
-  res.render('profile');
+router.get('/profile', isLoggedIn, async function (req, res, next) {
+  const user=await userModel.findOne({username: req.session.passport.user});
+  res.render("profile",{user});
 });
 
-router.post('/fileupload', isLoggedIn , upload.single("file"), function (req,res,next){
-    res.send("upload kar di hai ab");
+router.post('/fileupload', isLoggedIn , upload.single("file"), async function (req,res,next){
+    const user=await userModel.findOne({username: req.session.passport.user});
+    user.profileImage=req.file.filename;
+    await user.save();
+    res.redirect("/profile");
 });
 
 router.post('/register', function (req, res, next) {
@@ -42,9 +46,10 @@ router.post('/register', function (req, res, next) {
 });
 
 router.post('/login', passport.authenticate("local", {
-  failureRedirect: '/',
-  successRedirect: '/profile'
-}), function (req, res, next) { });
+  failureRedirect: '/'
+}), function (req, res, next) { 
+  res.redirect("/profile");
+});
 
 router.post('/logout', function (req, res, next) {
   req.logout(function (err) {
